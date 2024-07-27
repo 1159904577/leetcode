@@ -6,6 +6,17 @@ public class leetcode_27 {
     }
 
     public static int remove(int[] nums,int val){
+        int slowIndex = 0;
+        for (int fastIndex = 0; fastIndex < nums.length; fastIndex++) {
+            if(nums[fastIndex]==val){
+                continue;
+            }
+            nums[slowIndex++]=nums[fastIndex];
+        }
+        return slowIndex;
+    }
+
+    public static int remove1(int[] nums,int val){
         int slowIndex=0;
         for(int fastIndex=0;fastIndex<nums.length;fastIndex++){
             if(nums[fastIndex]!=val) {
