@@ -1,5 +1,48 @@
 public class leetcode_494 {
+
+
     public static int findTargetSumWays(int[] nums, int target) {
+        int sum=0;
+        for (int i = 0; i < nums.length; i++) {
+            sum+=nums[i];
+        }
+        if (sum < Math.abs(target)) {
+            return 0;
+        }
+        if ((target + sum) % 2 != 0) {
+            return 0;
+        }
+        int bagSize= (sum+target)/2;
+        int len = nums.length;
+
+        int[][] dp = new int[len][bagSize+1];
+
+        if (bagSize>=nums[0]){
+            dp[0][nums[0]]=1;
+        }
+
+        //初始化列
+        int zeroNum = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] == 0) {
+                zeroNum++;
+            }
+            dp[i][0] = (int) Math.pow(2, zeroNum);
+        }
+
+        for (int i = 1; i < len; i++) {
+            for (int j = 1; j <= bagSize; j++) {
+                if (nums[i]>j){
+                    dp[i][j]=dp[i-1][j];
+                }else {
+                    dp[i][j]=dp[i-1][j-nums[i]]+dp[i-1][j];
+                }
+            }
+        }
+
+        return dp[nums.length - 1][bagSize];
+    }
+    public static int findTargetSumWays1(int[] nums, int target) {
 
 
         //将nums分为左右连个集合，左集合全部做加法，右集合全部做减法

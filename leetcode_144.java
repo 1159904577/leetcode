@@ -8,9 +8,53 @@ public class leetcode_144 {
 
 
     /*
-        统一迭代遍历
+        迭代遍历
      */
     public static List<Integer> preorderTraversal(TreeNode root){
+        List<Integer> res = new ArrayList<>();
+        Deque<TreeNode> stack = new LinkedList<>();
+        if (root==null){
+            return res;
+        }
+        stack.push(root);
+        while (!stack.isEmpty()) {
+            TreeNode cur=stack.pop();
+            res.add(cur.val);
+
+            if (cur.right!=null){
+                stack.push(cur.right);
+            }
+            if (cur.left!=null){
+                stack.push(cur.left);
+            }
+
+        }
+
+        return res;
+    }
+
+    /*
+    递归遍历
+     */
+    public static List<Integer> preorderTraversal2(TreeNode root){
+        List<Integer> list = new ArrayList<>();
+        preorder(root,list);
+        return list;
+    }
+
+    public static void preorder(TreeNode root,List<Integer> list){
+        if (root==null){
+            return;
+        }
+        list.add(root.val);
+        preorder(root.left,list);
+        preorder(root.right,list);
+    }
+
+    /*
+        统一迭代遍历
+     */
+    public static List<Integer> preorderTraversal1(TreeNode root){
         List<Integer> result = new LinkedList<>();
         Stack<TreeNode> st = new Stack<>();
         if (root != null) st.push(root);

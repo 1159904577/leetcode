@@ -1,3 +1,7 @@
+import com.sun.jndi.cosnaming.CNCtx;
+
+import javax.print.attribute.standard.PrinterURI;
+import javax.swing.plaf.metal.MetalIconFactory;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -8,40 +12,68 @@ public class leetcode_39 {
 
     }
 
+    List<List<Integer>> ll = new ArrayList<>();
+    LinkedList<Integer> l = new LinkedList<>();
 
-    List<List<Integer>> result = new ArrayList<>();
-
-    public List<List<Integer>> combinationSum(int[] candidates,int target){
+    public List<List<Integer>> combinationSum(int[] candidates,int target) {
         Arrays.sort(candidates);
         backtracking(candidates,target,0,0);
-        return result;
+        return ll;
     }
 
-    LinkedList<Integer> list = new LinkedList<>();
-    //之所以定义int index
-    //当n叉树下一层取数的时候应该从大于等于自身开始取
-    //否增会有重复的组合
-    private void backtracking(int[] candidates,int target,int sum,int index){
+    public void backtracking(int[] candidates,int target ,int sum,int index){
+        if (sum>target)
+            return;
         if (sum==target){
-            result.add(new ArrayList<>(list));
+            ll.add(new ArrayList<>(l));
             return;
         }
 
-//        if (sum>target){
-//            return;
-//        }
-
         for (int i = index; i < candidates.length; i++) {
-            // 剪枝优化
-            //在循环开始的时候判断sum是否大于target，这样可以减少递归
             if (sum+candidates[i]>target){
                 return;
             }
-            list.add(candidates[i]);
             sum+=candidates[i];
+            l.add(candidates[i]);
             backtracking(candidates,target,sum,i);
-            sum-=candidates[i];
-            list.removeLast();
+            l.removeLast();
+            sum-= candidates[i];
         }
     }
+
+//    List<List<Integer>> result = new ArrayList<>();
+//
+//    public List<List<Integer>> combinationSum(int[] candidates,int target){
+//        Arrays.sort(candidates);
+//        backtracking(candidates,target,0,0);
+//        return result;
+//    }
+//
+//    LinkedList<Integer> list = new LinkedList<>();
+//    //之所以定义int index
+//    //当n叉树下一层取数的时候应该从大于等于自身开始取
+//    //否增会有重复的组合
+//    private void backtracking(int[] candidates,int target,int sum,int index){
+//        if (sum==target){
+//            result.add(new ArrayList<>(list));
+//            return;
+//        }
+//
+////        if (sum>target){
+////            return;
+////        }
+//
+//        for (int i = index; i < candidates.length; i++) {
+//            // 剪枝优化
+//            //在循环开始的时候判断sum是否大于target，这样可以减少递归
+//            if (sum+candidates[i]>target){
+//                return;
+//            }
+//            list.add(candidates[i]);
+//            sum+=candidates[i];
+//            backtracking(candidates,target,sum,i);
+//            sum-=candidates[i];
+//            list.removeLast();
+//        }
+//    }
 }

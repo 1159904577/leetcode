@@ -10,14 +10,17 @@ public class leetcode_322 {
         for (int j = 0; j < dp.length; j++) {
             dp[j] = max;
         }
-        for (int i = 0; i < coins.length ; i++) {
-            for (int j = coins[i]; j < amount; j++) {
-                if (dp[i - coins[j]] != max) {
-                    dp[i] = Math.min(dp[i], dp[i - coins[j]] + 1);
+
+        dp[0]=0;
+
+        for (int i = 0; i < coins.length; i++) {
+            for (int j = coins[i]; j <= amount; j++) {
+                if (dp[j - coins[i]] != max) {
+                    dp[j] = Math.min(dp[j], dp[j - coins[i]] + 1);
                 }
             }
         }
 
-        return dp[amount];
+        return dp[amount]==max?-1:dp[amount];
     }
 }

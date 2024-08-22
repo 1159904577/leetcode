@@ -3,8 +3,7 @@ public class leetcode_647 {
 
     }
 
-
-    public int countSubstrings(String s) {
+    public int countSubstrings1(String s) {
         int count = 0;
         boolean[][] dp = new boolean[s.length()][s.length()];
         for (int i = s.length()-1; i >=0 ; i--) {

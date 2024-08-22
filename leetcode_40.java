@@ -1,12 +1,49 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
+import sun.swing.BakedArrayList;
+
+import javax.swing.plaf.metal.MetalIconFactory;
+import java.util.*;
 
 public class leetcode_40 {
     public static void main(String[] args) {
 
     }
+
+//    List<List<Integer>> ll = new ArrayList<>();
+//    LinkedList<Integer> l = new LinkedList<>();
+//    Set<List<Integer>> set = new HashSet<>();
+//    public List<List<Integer>> combinationSum2(int[] candidates,int target){
+//        Arrays.sort(candidates);
+//        backtracking(candidates,target,0,0);
+//        return ll;
+//    }
+//
+//
+//    public void backtracking(int[] candidates,int target,int sum ,int startIndex){
+//        if (sum>target){
+//            return;
+//        }
+//        if (sum==target){
+//            List<Integer> tmp = new ArrayList<>(l);
+//            if (set.contains(tmp)){
+//                return;
+//            }
+//            set.add(tmp);
+//            ll.add(new ArrayList<>(l));
+//            return;
+//        }
+//
+//        for (int i = startIndex; i < candidates.length; i++) {
+//            if (sum+candidates[i]>target){
+//                return;
+//            }
+//            sum+=candidates[i];
+//            l.add(candidates[i]);
+//            backtracking(candidates,target,sum,startIndex+1);
+//            l.removeLast();
+//            sum-=candidates[i];
+//        }
+//    }
+
 
     List<List<Integer>> result = new ArrayList<>();
     boolean[] used;
@@ -24,7 +61,6 @@ public class leetcode_40 {
     private void backtracking(int[] candidates,int target,int index){
         if (sum==target){
             result.add(new ArrayList<>(list));
-            //为什么删了return效率更高？？？？？？
             return;
         }
 
