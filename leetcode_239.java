@@ -1,6 +1,7 @@
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.LinkedList;
+import java.util.Stack;
 
 
 public class leetcode_239 {
@@ -10,25 +11,29 @@ public class leetcode_239 {
 
     public static int[] maxSlidingWindow(int[] nums, int k) {
 
-        int[] arr = new int[nums.length - k + 1];
-        int index = 0;
-        ArrayDeque<Integer> deque = new ArrayDeque<>();
+        int[] arr = new int[nums.length-k+1];
+
+        Deque<Integer> deque = new LinkedList<>();
+
+        int index=0;
 
         for (int i = 0; i < nums.length; i++) {
-            if (!deque.isEmpty() && deque.peek() + k <= i) {
-                deque.poll();
+
+            if (!deque.isEmpty() && i-deque.peekFirst()>=k){
+                deque.pollFirst();
             }
-            while (!deque.isEmpty() && nums[i] >= nums[deque.peekLast()]) {
+
+            while (!deque.isEmpty() && nums[i]>=nums[deque.peekLast()]){
                 deque.pollLast();
             }
-            deque.offer(i);
+            deque.offerLast(i);
 
-            if (i >= k - 1) {
-                arr[index++] = nums[deque.peek()];
+            if (i>=k-1){
+                arr[index++]=nums[deque.peekFirst()];
             }
         }
-        return arr;
 
+        return arr;
     }
 
     public static int[] maxSlidingWindow1(int[] nums, int k) {
@@ -56,5 +61,29 @@ public class leetcode_239 {
             }
         }
         return arr;
+    }
+
+
+    public static int[] maxSlidingWindow2(int[] nums, int k) {
+
+        int[] arr = new int[nums.length - k + 1];
+        int index = 0;
+        ArrayDeque<Integer> deque = new ArrayDeque<>();
+
+        for (int i = 0; i < nums.length; i++) {
+            if (!deque.isEmpty() && deque.peek() + k <= i) {
+                deque.poll();
+            }
+            while (!deque.isEmpty() && nums[i] >= nums[deque.peekLast()]) {
+                deque.pollLast();
+            }
+            deque.offer(i);
+
+            if (i >= k - 1) {
+                arr[index++] = nums[deque.peek()];
+            }
+        }
+        return arr;
+
     }
 }
